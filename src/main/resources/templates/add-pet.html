@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить питомца</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>🐾 Управление питомцами</h1>
+        <p class="subtitle">Добавить нового питомца</p>
+    </header>
+
+    <nav class="navbar">
+        <a th:href="@{/pets}" class="nav-btn">← Назад к списку</a>
+    </nav>
+
+    <main class="main-content">
+        <section class="form-section">
+            <h2>Форма добавления питомца</h2>
+
+            <form th:action="@{/pets/save}" method="post" class="pet-form">
+                <div class="form-group">
+                    <label for="ownerName" class="form-label">Имя владельца *</label>
+                    <input
+                            type="text"
+                            id="ownerName"
+                            name="ownerName"
+                            th:field="*{pet.ownerName}"
+                            class="form-input"
+                            placeholder="Введите имя владельца"
+                            required>
+                    <small class="form-hint">: Иван Петров</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="petName" class="form-label">Имя питомца *</label>
+                    <input
+                            type="text"
+                            id="petName"
+                            name="petName"
+                            th:field="*{pet.petName}"
+                            class="form-input"
+                            placeholder="Введите имя питомца"
+                            required>
+                    <small class="form-hint">: Шарик</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="species" class="form-label">Вид животного *</label>
+                    <select id="species" name="species" th:field="*{pet.species}" class="form-input" required>
+                        <option value="">-- Выберите вид --</option>
+                        <option value="Собака">Собака</option>
+                        <option value="Кошка">Кошка</option>
+                        <option value="Птица">Птица</option>
+                        <option value="Рыба">Рыба</option>
+                        <option value="Грызун">Грызун</option>
+                        <option value="Рептилия">Рептилия</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                    <small class="form-hint">Выберите из списка</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        ✅ Добавить питомца
+                    </button>
+                    <a th:href="@{/pets}" class="btn btn-secondary">
+                        ❌ Отмена
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Система управления питомцами. Все права защищены.</p>
+    </footer>
+</div>
+</body>
+</html>
