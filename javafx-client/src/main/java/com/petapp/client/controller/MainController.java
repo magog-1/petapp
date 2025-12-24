@@ -14,15 +14,13 @@ public class MainController {
 
     @FXML private TableView<Pet> petTable;
     @FXML private TableColumn<Pet, Long> idColumn;
-    @FXML private TableColumn<Pet, String> nameColumn;
+    @FXML private TableColumn<Pet, String> petNameColumn;
     @FXML private TableColumn<Pet, String> speciesColumn;
-    @FXML private TableColumn<Pet, Integer> ageColumn;
-    @FXML private TableColumn<Pet, String> ownerColumn;
+    @FXML private TableColumn<Pet, String> ownerNameColumn;
 
-    @FXML private TextField nameField;
+    @FXML private TextField petNameField;
     @FXML private TextField speciesField;
-    @FXML private TextField ageField;
-    @FXML private TextField ownerField;
+    @FXML private TextField ownerNameField;
 
     @FXML private Button addButton;
     @FXML private Button updateButton;
@@ -36,10 +34,9 @@ public class MainController {
     public void initialize() {
         // Настройка колонок таблицы
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        petNameColumn.setCellValueFactory(new PropertyValueFactory<>("petName"));
         speciesColumn.setCellValueFactory(new PropertyValueFactory<>("species"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
-        ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
+        ownerNameColumn.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
 
         petTable.setItems(petList);
 
@@ -57,12 +54,16 @@ public class MainController {
 
     @FXML
     private void handleAdd() {
+        if (petNameField.getText().isEmpty() || speciesField.getText().isEmpty() || ownerNameField.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Предупреждение", "Заполните все поля!");
+            return;
+        }
+        
         try {
             Pet pet = new Pet(
-                nameField.getText(),
+                petNameField.getText(),
                 speciesField.getText(),
-                Integer.parseInt(ageField.getText()),
-                ownerField.getText()
+                ownerNameField.getText()
             );
 
             Pet createdPet = apiService.createPet(pet);
@@ -71,8 +72,6 @@ public class MainController {
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Питомец добавлен!");
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось добавить питомца: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Ошибка", "Возраст должен быть числом!");
         }
     }
 
@@ -84,12 +83,16 @@ public class MainController {
             return;
         }
 
+        if (petNameField.getText().isEmpty() || speciesField.getText().isEmpty() || ownerNameField.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Предупреждение", "Заполните все поля!");
+            return;
+        }
+
         try {
             Pet updatedPet = new Pet(
-                nameField.getText(),
+                petNameField.getText(),
                 speciesField.getText(),
-                Integer.parseInt(ageField.getText()),
-                ownerField.getText()
+                ownerNameField.getText()
             );
 
             apiService.updatePet(selectedPet.getId(), updatedPet);
@@ -98,8 +101,6 @@ public class MainController {
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Питомец обновлен!");
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось обновить питомца: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Ошибка", "Возраст должен быть числом!");
         }
     }
 
@@ -136,17 +137,15 @@ public class MainController {
     }
 
     private void fillFields(Pet pet) {
-        nameField.setText(pet.getName());
+        petNameField.setText(pet.getPetName());
         speciesField.setText(pet.getSpecies());
-        ageField.setText(String.valueOf(pet.getAge()));
-        ownerField.setText(pet.getOwner());
+        ownerNameField.setText(pet.getOwnerName());
     }
 
     private void clearFields() {
-        nameField.clear();
+        petNameField.clear();
         speciesField.clear();
-        ageField.clear();
-        ownerField.clear();
+        ownerNameField.clear();
         petTable.getSelectionModel().clearSelection();
     }
 
