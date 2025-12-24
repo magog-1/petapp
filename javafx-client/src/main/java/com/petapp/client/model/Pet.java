@@ -2,39 +2,34 @@ package com.petapp.client.model;
 
 public class Pet {
     private Long id;
-    private String name;
+    private String petName;
     private String species;
-    private Integer age;
-    private String owner;
+    private String ownerName;
 
     public Pet() {}
 
-    public Pet(String name, String species, Integer age, String owner) {
-        this.name = name;
+    public Pet(String petName, String species, String ownerName) {
+        this.petName = petName;
         this.species = species;
-        this.age = age;
-        this.owner = owner;
+        this.ownerName = ownerName;
     }
 
     // Геттеры и сеттеры
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getPetName() { return petName; }
+    public void setPetName(String petName) { this.petName = petName; }
     
     public String getSpecies() { return species; }
     public void setSpecies(String species) { this.species = species; }
     
-    public Integer getAge() { return age; }
-    public void setAge(Integer age) { this.age = age; }
-    
-    public String getOwner() { return owner; }
-    public void setOwner(String owner) { this.owner = owner; }
+    public String getOwnerName() { return ownerName; }
+    public void setOwnerName(String ownerName) { this.ownerName = ownerName; }
 
     @Override
     public String toString() {
-        return "Pet{id=" + id + ", name='" + name + "', species='" + species + 
-               "', age=" + age + ", owner='" + owner + "'}";
+        return "Pet{id=" + id + ", petName='" + petName + "', species='" + species + 
+               "', ownerName='" + ownerName + "'}";
     }
 }
