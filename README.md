@@ -31,7 +31,7 @@ CREATE DATABASE petdb;
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/petdb
-spring.datasource.username=your_username
+spring.datasource.username=root
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 server.port=8080
@@ -87,6 +87,9 @@ mvn javafx:run
 - OkHttp 4.12
 - Gson 2.10
 
-## Автор
+## Модель данных Pet
 
-magog-1
+- **id** (автоинкремент) - уникальный идентификатор
+- **petName** - имя питомца
+- **species** - вид животного
+- **ownerName** - имя владельца

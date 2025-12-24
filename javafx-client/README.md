@@ -46,3 +46,10 @@ javafx-client/
 │   └── resources/fxml/main.fxml   # FXML разметка
 └── pom.xml
 ```
+
+## Поля модели Pet
+
+- **id** - уникальный идентификатор
+- **petName** - имя питомца
+- **species** - вид животного (кот, собака и т.д.)
+- **ownerName** - имя владельца

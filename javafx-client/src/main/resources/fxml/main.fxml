@@ -21,10 +21,9 @@
         <TableView fx:id="petTable" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="nameColumn" text="Имя" prefWidth="150"/>
-                <TableColumn fx:id="speciesColumn" text="Вид" prefWidth="150"/>
-                <TableColumn fx:id="ageColumn" text="Возраст" prefWidth="80"/>
-                <TableColumn fx:id="ownerColumn" text="Владелец" prefWidth="150"/>
+                <TableColumn fx:id="petNameColumn" text="Имя питомца" prefWidth="200"/>
+                <TableColumn fx:id="speciesColumn" text="Вид" prefWidth="200"/>
+                <TableColumn fx:id="ownerNameColumn" text="Имя владельца" prefWidth="200"/>
             </columns>
             <BorderPane.margin>
                 <Insets top="10" left="10" right="10" bottom="10"/>
@@ -39,17 +38,14 @@
             </padding>
 
             <GridPane hgap="10" vgap="10">
-                <Label text="Имя:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
+                <Label text="Имя питомца:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="petNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200"/>
 
-                <Label text="Вид:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <TextField fx:id="speciesField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"/>
+                <Label text="Вид:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="speciesField" GridPane.columnIndex="3" GridPane.rowIndex="0" prefWidth="200"/>
 
-                <Label text="Возраст:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                <TextField fx:id="ageField" GridPane.columnIndex="3" GridPane.rowIndex="0" prefWidth="100"/>
-
-                <Label text="Владелец:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                <TextField fx:id="ownerField" GridPane.columnIndex="3" GridPane.rowIndex="1" prefWidth="200"/>
+                <Label text="Имя владельца:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="ownerNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200"/>
             </GridPane>
 
             <HBox spacing="10" alignment="CENTER">
