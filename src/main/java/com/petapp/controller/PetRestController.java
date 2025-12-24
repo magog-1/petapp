@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pets")
@@ -27,42 +28,40 @@ public class PetRestController {
     // Получить питомца по ID
     @GetMapping("/{id}")
     public ResponseEntity<Pet> getPetById(@PathVariable Long id) {
-        Pet pet = petService.getPetById(id);
-        if (pet != null) {
-            return ResponseEntity.ok(pet);
-        }
-        return ResponseEntity.notFound().build();
+        Optional<Pet> pet = petService.getPetById(id);
+        return pet.map(ResponseEntity::ok)
+                  .orElse(ResponseEntity.notFound().build());
     }
 
     // Создать нового питомца
     @PostMapping
     public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-        Pet savedPet = petService.savePet(pet);
+        Pet savedPet = petService.addPet(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPet);
     }
 
     // Обновить питомца
     @PutMapping("/{id}")
     public ResponseEntity<Pet> updatePet(@PathVariable Long id, @RequestBody Pet petDetails) {
-        Pet pet = petService.getPetById(id);
-        if (pet == null) {
+        Optional<Pet> petOptional = petService.getPetById(id);
+        
+        if (!petOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         
-        pet.setName(petDetails.getName());
+        Pet pet = petOptional.get();
+        pet.setPetName(petDetails.getPetName());
         pet.setSpecies(petDetails.getSpecies());
-        pet.setAge(petDetails.getAge());
-        pet.setOwner(petDetails.getOwner());
+        pet.setOwnerName(petDetails.getOwnerName());
         
-        Pet updatedPet = petService.savePet(pet);
+        Pet updatedPet = petService.updatePet(pet);
         return ResponseEntity.ok(updatedPet);
     }
 
     // Удалить питомца
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePet(@PathVariable Long id) {
-        Pet pet = petService.getPetById(id);
-        if (pet == null) {
+        if (!petService.petExists(id)) {
             return ResponseEntity.notFound().build();
         }
         
