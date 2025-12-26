@@ -23,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setRole("ADMIN");
+            admin.addRole("ROLE_ADMIN");
             userRepository.save(admin);
             
             System.out.println("===========================================");
@@ -38,7 +38,7 @@ public class DataInitializer implements CommandLineRunner {
             User user = new User();
             user.setUsername("user");
             user.setPassword(passwordEncoder.encode("user123"));
-            user.setRole("USER");
+            user.addRole("ROLE_USER");
             userRepository.save(user);
             
             System.out.println("===========================================");
